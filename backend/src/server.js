@@ -1,8 +1,11 @@
-require("dotenv").config();
-const app = require("./src/app");
+const path = require("path");
+const fs = require("fs");
 
-const PORT = 3000;
+const envPath = path.resolve(__dirname, "../../../.env");
 
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
-});
+console.log("ENV PATH:", envPath);
+console.log("EXISTS:", fs.existsSync(envPath));
+
+require("dotenv").config({ path: envPath });
+
+console.log("DB_PASSWORD:", process.env.DB_PASSWORD);
