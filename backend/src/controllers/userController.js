@@ -1,70 +1,62 @@
 const UserService = require("../services/userService");
+const { success, error } = require("../utils/response");
 
-// Controller = camada que lida com HTTP (req/res)
 class UserController {
   // CREATE - criar usuário
   async create(req, res) {
     try {
-      // pega dados enviados no body da requisição
       const { name, email, password } = req.body;
 
-      // chama o service (regra de negócio)
+      // validação simples (P0.6)
+      if (!name || !email || !password) {
+        return error(res, "Nome, email e senha são obrigatórios", 400);
+      }
+
+      if (!email.includes("@")) {
+        return error(res, "Email inválido", 400);
+      }
+
+      if (password.length < 6) {
+        return error(res, "Senha deve ter no mínimo 6 caracteres", 400);
+      }
+
       const user = await UserService.createUser({
         name,
         email,
         password,
       });
 
-      // retorna resposta HTTP de sucesso
-      return res.status(201).json({
-        success: true,
-        data: user,
-      });
-    } catch (error) {
-      // se der erro, responde para o cliente
-      return res.status(400).json({
-        success: false,
-        message: error.message,
-      });
+      return success(res, user, "Usuário criado com sucesso", 201);
+    } catch (err) {
+      return error(res, err.message || "Erro ao criar usuário", 400);
     }
   }
 
   // READ - listar todos usuários
   async getAll(req, res) {
     try {
-      // chama service para buscar dados
       const users = await UserService.getAllUsers();
 
-      return res.status(200).json({
-        success: true,
-        data: users,
-      });
-    } catch (error) {
-      return res.status(500).json({
-        success: false,
-        message: error.message,
-      });
+      return success(res, users, "Usuários listados com sucesso");
+    } catch (err) {
+      return error(res, "Erro ao buscar usuários", 500);
     }
   }
 
   // READ - buscar usuário por ID
   async getById(req, res) {
     try {
-      // pega id da URL (/users/:id)
       const { id } = req.params;
 
-      // converte pra número (boa prática)
       const user = await UserService.getUserById(Number(id));
 
-      return res.status(200).json({
-        success: true,
-        data: user,
-      });
-    } catch (error) {
-      return res.status(404).json({
-        success: false,
-        message: error.message,
-      });
+      if (!user) {
+        return error(res, "Usuário não encontrado", 404);
+      }
+
+      return success(res, user, "Usuário encontrado");
+    } catch (err) {
+      return error(res, "Erro ao buscar usuário", 500);
     }
   }
 
@@ -74,20 +66,18 @@ class UserController {
       const { id } = req.params;
       const { name, email } = req.body;
 
+      if (!name && !email) {
+        return error(res, "Nada para atualizar", 400);
+      }
+
       const user = await UserService.updateUser(Number(id), {
         name,
         email,
       });
 
-      return res.status(200).json({
-        success: true,
-        data: user,
-      });
-    } catch (error) {
-      return res.status(400).json({
-        success: false,
-        message: error.message,
-      });
+      return success(res, user, "Usuário atualizado com sucesso");
+    } catch (err) {
+      return error(res, err.message || "Erro ao atualizar usuário", 400);
     }
   }
 
@@ -98,18 +88,11 @@ class UserController {
 
       await UserService.deleteUser(Number(id));
 
-      return res.status(200).json({
-        success: true,
-        message: "Usuário deletado com sucesso",
-      });
-    } catch (error) {
-      return res.status(400).json({
-        success: false,
-        message: error.message,
-      });
+      return success(res, null, "Usuário deletado com sucesso");
+    } catch (err) {
+      return error(res, "Erro ao deletar usuário", 400);
     }
   }
 }
 
-// exporta instância do controller
 module.exports = new UserController();
