@@ -1,14 +1,11 @@
 const jwt = require("jsonwebtoken");
+const { error, unauthorized, forbidden } = require("../utils/response");
 
 function authenticate(req, res, next) {
   const token = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
-    return res.status(401).json({
-      success: false,
-      data: null,
-      message: "Token não fornecido",
-    });
+    return unauthorized(res, "Token não fornecido");
   }
 
   try {
@@ -16,21 +13,16 @@ function authenticate(req, res, next) {
     req.user = decoded;
     next();
   } catch (err) {
-    return res.status(403).json({
-      success: false,
-      data: null,
-      message: "Token inválido",
-    });
+    if (err.name === "TokenExpiredError") {
+      return unauthorized(res, "Token expirado");
+    }
+    return unauthorized(res, "Token inválido");
   }
 }
 
 function isAdmin(req, res, next) {
-  if (req.user.role !== "admin") {
-    return res.status(403).json({
-      success: false,
-      data: null,
-      message: "Acesso restrito a administradores",
-    });
+  if (!req.user || req.user.role !== "admin") {
+    return forbidden(res, "Acesso restrito a administradores");
   }
   next();
 }

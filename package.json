@@ -2,7 +2,7 @@
   "name": "palestra-analytics",
   "version": "1.0.0",
   "description": "",
-  "main": "./backend/src/server.js", 
+  "main": "./backend/src/server.js",
   "directories": {
     "doc": "docs"
   },
@@ -23,9 +23,11 @@
   },
   "homepage": "https://github.com/mparise28-dev/palestra-analytics#readme",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
     "pg": "^8.21.0"
   }
 }
