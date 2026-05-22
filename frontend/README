@@ -1,0 +1,272 @@
+# ⚽ Palestra Analytics — Frontend
+
+Frontend oficial do projeto **Palestra Analytics**, uma plataforma de visualização de dados, estatísticas e análises esportivas voltadas ao futebol.
+
+O frontend é responsável pela interface visual do sistema, consumindo a API backend para exibição de:
+
+- Jogos
+- Estatísticas
+- Rankings
+- Elenco
+- Dashboard Analytics
+- Autenticação de usuários
+
+---
+
+# 🎯 Objetivo do Projeto
+
+Criar uma interface moderna, elegante e performática para análise esportiva, priorizando:
+
+- Clareza visual
+- Organização de dados
+- Responsividade
+- Experiência do usuário
+- Design minimalista
+
+A proposta visual segue uma linha inspirada em plataformas como:
+
+- Sofascore
+- FotMob
+- OneFootball
+
+---
+
+# 🧱 Tecnologias Utilizadas
+
+- HTML5
+- CSS3
+- JavaScript Vanilla
+- Fetch API
+
+---
+
+# 📂 Estrutura do Projeto
+
+```txt
+frontend/
+├── assets/
+│   ├── images/
+│   ├── icons/
+│
+├── css/
+│   ├── global.css
+│   ├── style.css
+│   ├── dashboard.css
+│   ├── matches.css
+│
+├── js/
+│   ├── api.js
+│   ├── auth.js
+│   ├── dashboard.js
+│   ├── matches.js
+│
+├── components/
+│   ├── navbar.js
+│   ├── footer.js
+│   ├── cards.js
+│
+├── pages/
+│   ├── index.html
+│   ├── login.html
+│   ├── dashboard.html
+│   ├── matches.html
+│
+└── README.md
+```
+
+---
+
+# 🎨 Design System
+
+O frontend segue um padrão visual baseado em:
+
+- Tema escuro
+- Cards minimalistas
+- Destaque visual em verde Palmeiras
+- Layout limpo
+- Hierarquia visual forte
+- Espaçamento consistente
+
+---
+
+# 🎨 Paleta de Cores
+
+| Cor | Uso |
+|------|------|
+| `#0D1117` | Fundo principal |
+| `#161B22` | Cards |
+| `#1DB954` | Cor destaque |
+| `#E6EDF3` | Texto principal |
+| `#8B949E` | Texto secundário |
+
+---
+
+# 🔤 Tipografia
+
+Fonte principal utilizada:
+
+- Inter
+
+Google Fonts:
+
+https://fonts.google.com/specimen/Inter
+
+---
+
+# 📱 Responsividade
+
+O projeto está sendo desenvolvido com abordagem:
+
+- Mobile First
+
+Objetivos:
+
+- Melhor experiência em dispositivos móveis
+- Layout escalável
+- Interface adaptável para desktop
+
+---
+
+# 🌐 Integração com Backend
+
+O frontend consome dados da API backend via Fetch API.
+
+Exemplo de endpoints:
+
+```http
+GET /matches
+GET /players
+GET /statistics
+POST /auth/login
+```
+
+---
+
+# 🔐 Autenticação
+
+O sistema utilizará autenticação baseada em:
+
+- JWT (JSON Web Token)
+
+Funcionalidades previstas:
+
+- Login
+- Persistência de sessão
+- Rotas protegidas
+- Controle de permissões
+
+---
+
+# 🧩 Organização do JavaScript
+
+Padrões adotados:
+
+- Um arquivo JS por página
+- Componentes reutilizáveis
+- Separação entre lógica e interface
+- Centralização de requisições em `api.js`
+
+---
+
+# 🚀 Executando o Projeto
+
+## Opção 1 — Live Server (Recomendado)
+
+Utilize a extensão Live Server no VSCode.
+
+---
+
+## Opção 2 — Abrir HTML diretamente
+
+Abrir:
+
+```txt
+index.html
+```
+
+---
+
+# 📌 Convenções do Projeto
+
+## HTML
+
+- Estrutura semântica
+- Componentização futura
+- Organização por páginas
+
+## CSS
+
+- CSS modularizado
+- Uso de variáveis globais
+- Responsividade nativa
+
+## JavaScript
+
+- Código desacoplado
+- Funções reutilizáveis
+- Consumo de API centralizado
+
+---
+
+# 🔥 Roadmap Frontend
+
+## Estrutura Base
+
+- [x] Estrutura inicial de pastas
+- [ ] Navbar
+- [ ] Footer
+- [ ] Home Page
+- [ ] Tela de Login
+
+## Módulo Jogos
+
+- [ ] Listagem de partidas
+- [ ] Filtro por temporada
+- [ ] Detalhes de partidas
+
+## Analytics
+
+- [ ] Dashboard
+- [ ] Rankings
+- [ ] Estatísticas de jogadores
+- [ ] Estatísticas de equipes
+
+## Usuários
+
+- [ ] Sistema de login
+- [ ] Favoritos
+- [ ] Curtidas
+- [ ] Comentários
+
+## Melhorias Futuras
+
+- [ ] Dark theme refinado
+- [ ] Animações suaves
+- [ ] Componentização avançada
+- [ ] Migração futura para React
+
+---
+
+# 🧠 Filosofia do Projeto
+
+O foco do frontend não é excesso visual.
+
+A prioridade é:
+
+- Experiência limpa
+- Performance
+- Clareza dos dados
+- Interface elegante
+- Simplicidade bem executada
+
+---
+
+# 👨‍💻 Autor
+
+Projeto desenvolvido por Marcello Parise.
+
+---
+
+# 📌 Status
+
+🚧 Em desenvolvimento
