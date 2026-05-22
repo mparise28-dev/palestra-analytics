@@ -8,6 +8,7 @@ const authRoutes = require("./routes/authRoutes");
 const errorHandler = require("./middlewares/errorHandler");
 const playerRoutes = require("./routes/playerRoutes");
 const seasonRoutes = require("./routes/seasonRoutes");
+const matchRoutes = require("./routes/matchRoutes"); // ← REMOVI o /src/
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use("/api", userRoutes);
 app.use("/auth", authRoutes);
 app.use("/api", playerRoutes);
 app.use("/api", seasonRoutes);
+app.use("/api/matches", matchRoutes);
 
 // 👇 SERVE O FRONTEND (arquivos estáticos)
 const frontendPath = path.join(__dirname, "../../frontend");
