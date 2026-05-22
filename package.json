@@ -1,0 +1,24 @@
+{
+  "name": "palestra-analytics",
+  "version": "1.0.0",
+  "description": "API backend para gerenciamento de estatísticas",
+  "main": "./backend/src/server.js",
+  "scripts": {
+    "start": "node ./backend/src/server.js",
+    "dev": "node --watch ./backend/src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mparise28-dev/palestra-analytics.git"
+  },
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.21.0"
+  }
+}

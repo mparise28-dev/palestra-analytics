@@ -1,0 +1,24 @@
+# 📊 Palestra Analytics
+
+> API backend para gerenciamento de estatísticas de palestras, usuários e análises de desempenho com arquitetura escalável
+
+[![Node.js](https://img.shields.io/badge/Node.js-20.x-green.svg)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express-4.x-blue.svg)](https://expressjs.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15.x-blue.svg)](https://www.postgresql.org/)
+[![JWT](https://img.shields.io/badge/JWT-Authentication-orange.svg)](https://jwt.io/)
+[![License](https://img.shields.io/badge/License-MIT-red.svg)](LICENSE)
+
+## 📋 Sobre o Projeto
+
+O **Palestra Analytics** é uma API backend robusta para gerenciamento de usuários, autenticação e geração de estatísticas de uso/desempenho do sistema de palestras. Desenvolvido com arquitetura limpa e escalável, seguindo os padrões **Repository-Service-Controller**.
+
+### 🎯 Visão do Produto
+
+Plataforma que permite:
+- ✅ Gerenciamento completo de usuários (CRUD)
+- ✅ Autenticação segura com JWT
+- ✅ Módulo de estatísticas avançadas
+- ✅ Diferentes níveis de acesso (user/admin)
+- ✅ API pública para consultas read-only
+
+## 🏗️ Arquitetura do Projeto
