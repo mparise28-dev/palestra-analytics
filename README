@@ -1,0 +1,32 @@
+# Palestra Analytics
+
+Sistema fullstack de estatísticas e análise da Sociedade Esportiva Palmeiras.
+
+## Objetivo
+
+Desenvolver uma aplicação fullstack moderna para visualização de dados, estatísticas e informações relacionadas ao Palmeiras.
+
+## Tecnologias
+
+### Frontend
+- HTML
+- CSS
+- JavaScript
+
+### Backend
+- Node.js
+- Express
+
+### Banco de Dados
+- PostgreSQL
+
+## Metodologia
+
+O projeto será desenvolvido utilizando conceitos de Scrum, dividido em 3 sprints.
+
+## Sprint 1
+- Estruturação do projeto
+- Documentação inicial
+- Configuração do backend
+- Primeiros endpoints
+- Integração inicial frontend/backend
