@@ -243,12 +243,17 @@ function mostrarProximosJogos() {
 }
 
 // ============================================
-// NAVEGAÇÃO E INICIALIZAÇÃO
+// EXPOR FUNÇÕES PARA O MODAL DE LOGIN
 // ============================================
 
-document.getElementById("loginBtn")?.addEventListener("click", () => {
-  window.location.href = "/pages/login.html";
-});
+// Exportar funções para que o modal-login.js possa recarregar os dados
+window.carregarEstatisticasTime = carregarEstatisticasTime;
+window.carregarRanking = carregarRanking;
+window.carregarJogos = carregarJogos;
+
+// ============================================
+// INICIALIZAÇÃO
+// ============================================
 
 document.addEventListener("DOMContentLoaded", async () => {
   await carregarJogos();
