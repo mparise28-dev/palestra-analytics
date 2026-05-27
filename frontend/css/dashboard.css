@@ -1,0 +1,370 @@
+:root {
+  --palmeiras-green: #005000;
+  --palmeiras-green-light: #1a7a1a;
+  --palmeiras-gold: #d4af37;
+  --bg-primary: #0a0c10;
+  --bg-secondary: #11151c;
+  --bg-card: rgba(22, 32, 42, 0.6);
+  --text-primary: #e8edf2;
+  --text-secondary: #8b9eb0;
+  --border-color: #1e2a36;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(
+    135deg,
+    var(--bg-primary) 0%,
+    var(--bg-secondary) 100%
+  );
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 12, 16, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.header-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.logo-icon {
+  font-size: 1.6rem;
+}
+
+.logo-highlight {
+  color: var(--palmeiras-green-light);
+}
+
+.nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--palmeiras-green-light);
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-name {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.btn-logout {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-logout:hover {
+  border-color: var(--palmeiras-green-light);
+  color: var(--palmeiras-green-light);
+}
+
+/* Container */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Welcome Banner */
+.welcome-banner {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 80, 0, 0.2) 0%,
+    rgba(0, 51, 0, 0.3) 100%
+  );
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.welcome-banner h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.welcome-banner h1 span {
+  color: var(--palmeiras-gold);
+}
+
+.welcome-banner p {
+  color: var(--text-secondary);
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(2px);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--palmeiras-green-light);
+}
+
+.stat-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--palmeiras-gold);
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Sections */
+.section {
+  background: var(--bg-card);
+  backdrop-filter: blur(2px);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.section-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.section-header h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Two Column */
+.two-col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+/* Jogos */
+.jogos-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.jogo-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  transition: all 0.2s;
+}
+
+.jogo-card:hover {
+  background: rgba(0, 80, 0, 0.1);
+}
+
+.jogo-data {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  min-width: 60px;
+}
+
+.jogo-placar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+}
+
+.time {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.time-palmeiras {
+  color: var(--palmeiras-green-light);
+}
+
+.gols {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.vs {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.jogo-resultado {
+  font-size: 1rem;
+  min-width: 40px;
+  text-align: center;
+}
+
+/* Ranking */
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.ranking-posicao {
+  width: 30px;
+  height: 30px;
+  background: var(--border-color);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.ranking-posicao.primeiro {
+  background: var(--palmeiras-gold);
+  color: var(--bg-primary);
+}
+
+.ranking-nome {
+  flex: 1;
+  font-weight: 500;
+}
+
+.ranking-gols {
+  font-weight: 700;
+  color: var(--palmeiras-green-light);
+}
+
+/* Loading */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid var(--border-color);
+  margin-top: 2rem;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .nav {
+    gap: 1rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .two-col-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+
+  .welcome-banner h1 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .user-menu {
+    flex-direction: column;
+  }
+}

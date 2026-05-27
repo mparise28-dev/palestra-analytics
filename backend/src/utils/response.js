@@ -14,4 +14,8 @@ function error(res, message = "Erro", statusCode = 400, data = null) {
   });
 }
 
-module.exports = { success, error };
+// Criando os apelidos
+const successResponse = success;
+const errorResponse = error;
+
+module.exports = { success, error, successResponse, errorResponse };

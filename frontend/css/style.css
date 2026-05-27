@@ -1,4 +1,18 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+:root {
+  --palmeiras-green: #005000;
+  --palmeiras-green-light: #1a7a1a;
+  --palmeiras-green-dark: #003300;
+  --palmeiras-gold: #d4af37;
+  --bg-primary: #0a0c10;
+  --bg-secondary: #11151c;
+  --bg-card: #16202a;
+  --text-primary: #e8edf2;
+  --text-secondary: #8b9eb0;
+  --border-color: #1e2a36;
+  --success: #00b894;
+  --danger: #ff7675;
+  --warning: #fdcb6e;
+}
 
 * {
   margin: 0;
@@ -7,223 +21,452 @@
 }
 
 body {
-  background-color: #0d1117;
   font-family: "Inter", sans-serif;
-  color: #e6edf3;
+  background: linear-gradient(
+    135deg,
+    var(--bg-primary) 0%,
+    var(--bg-secondary) 100%
+  );
+  color: var(--text-primary);
+  line-height: 1.5;
 }
 
-.navbar {
-  width: 100%;
+/* ========== HEADER ========== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 12, 16, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.header-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 60px;
-  background-color: #161b22;
-  border-bottom: 1px solid #30363d;
 }
 
 .logo {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #1db954;
-}
-
-.nav-links {
   display: flex;
-  gap: 30px;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
-.nav-links a {
+.logo-icon {
+  font-size: 1.8rem;
+}
+
+.logo-text {
+  letter-spacing: -0.5px;
+}
+
+.logo-highlight {
+  color: var(--palmeiras-green-light);
+  font-weight: 800;
+}
+
+.nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-link {
   text-decoration: none;
-  color: #e6edf3;
-  font-size: 0.95rem;
-  transition: 0.2s;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color 0.2s;
+  position: relative;
 }
 
-.nav-links a:hover {
-  color: #1db954;
+.nav-link:hover,
+.nav-link.active {
+  color: var(--palmeiras-green-light);
 }
 
-.login-btn {
-  background-color: #1db954;
-  color: #0d1117;
-  border: none;
-  padding: 10px 18px;
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--palmeiras-green-light);
+  border-radius: 2px;
+}
+
+.btn-login {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.5rem 1.2rem;
   border-radius: 8px;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.2s;
 }
 
-.login-btn:hover {
-  opacity: 0.8;
+.btn-login:hover {
+  border-color: var(--palmeiras-green-light);
+  color: var(--palmeiras-green-light);
 }
 
-/* Container principal */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-/* Hero Section */
+/* ========== HERO ========== */
 .hero {
+  background: linear-gradient(
+    135deg,
+    var(--palmeiras-green-dark) 0%,
+    var(--bg-primary) 100%
+  );
+  padding: 4rem 2rem;
   text-align: center;
-  padding: 60px 20px;
-  background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+  border-bottom: 1px solid var(--border-color);
 }
 
-.hero h2 {
-  font-size: 2.5rem;
-  margin-bottom: 16px;
-  background: linear-gradient(135deg, #1db954, #1ed760);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.hero-content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
-.hero p {
+.hero-highlight {
+  color: var(--palmeiras-gold);
+}
+
+.hero-content p {
   font-size: 1.1rem;
-  color: #8b949e;
+  color: var(--text-secondary);
 }
 
-/* Conteúdo em grid */
-.content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 24px;
-  padding: 40px 20px;
-  max-width: 1200px;
+/* ========== CONTAINER ========== */
+.container {
+  max-width: 1280px;
   margin: 0 auto;
+  padding: 2rem;
 }
 
-/* Cards */
-.card {
-  background-color: #161b22;
-  border: 1px solid #30363d;
-  border-radius: 12px;
-  padding: 24px;
-  transition: transform 0.2s, border-color 0.2s;
+/* ========== SECTIONS ========== */
+.section {
+  background: rgba(22, 32, 42, 0.6);
+  backdrop-filter: blur(2px);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  transition:
+    transform 0.2s,
+    border-color 0.2s;
 }
 
-.card:hover {
-  border-color: #1db954;
-  transform: translateY(-2px);
+.section:hover {
+  border-color: rgba(26, 122, 26, 0.3);
 }
 
-.card h3 {
+.section-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.section-header h2 {
   font-size: 1.25rem;
-  margin-bottom: 16px;
-  color: #1db954;
-  border-bottom: 1px solid #30363d;
-  padding-bottom: 12px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
 }
 
-/* Itens de jogos */
-.jogo-item {
-  padding: 12px 0;
-  border-bottom: 1px solid #21262d;
+/* ========== JOGOS ========== */
+.jogos-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-.jogo-item:last-child {
-  border-bottom: none;
-}
-
-.jogo-item h4 {
-  color: #e6edf3;
-  margin-bottom: 8px;
-}
-
-.jogo-item p {
-  color: #8b949e;
-  font-size: 0.85rem;
-  margin: 4px 0;
-}
-
-/* Itens de estatísticas */
-.stat-item {
-  padding: 8px 0;
+.jogo-card {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #21262d;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  transition: all 0.2s;
 }
 
-.stat-item strong {
-  color: #1db954;
+.jogo-card:hover {
+  background: rgba(0, 80, 0, 0.1);
+  transform: translateX(5px);
 }
 
-/* Footer */
-.main-footer {
+.jogo-data {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  min-width: 60px;
+}
+
+.jogo-placar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+}
+
+.time {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.time-palmeiras {
+  color: var(--palmeiras-green-light);
+}
+
+.gols {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.vs {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.jogo-resultado {
+  font-size: 1.1rem;
+  min-width: 40px;
   text-align: center;
-  padding: 24px;
-  background-color: #161b22;
-  border-top: 1px solid #30363d;
-  color: #8b949e;
-  font-size: 0.85rem;
-  margin-top: 40px;
 }
 
-/* Botões secundários */
-.btn-secondary {
-  background-color: #21262d;
-  color: #e6edf3;
-  border: 1px solid #30363d;
-  padding: 8px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.2s;
+.jogo-card.vitoria {
+  border-left: 3px solid var(--success);
 }
 
-.btn-secondary:hover {
-  background-color: #30363d;
-  border-color: #1db954;
+.jogo-card.empate {
+  border-left: 3px solid var(--warning);
 }
 
-/* Loading */
-.loading {
+.jogo-card.derrota {
+  border-left: 3px solid var(--danger);
+}
+
+/* ========== STATS GRID ========== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.stat-card {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
+  padding: 1.25rem;
   text-align: center;
-  padding: 40px;
-  color: #8b949e;
+  transition: all 0.2s;
 }
 
-/* Responsividade */
+.stat-card:hover {
+  transform: translateY(-3px);
+  background: rgba(26, 122, 26, 0.1);
+}
+
+.stat-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  display: block;
+  color: var(--palmeiras-green-light);
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ========== RANKING ========== */
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+
+.ranking-item:hover {
+  background: rgba(26, 122, 26, 0.1);
+}
+
+.ranking-posicao {
+  width: 32px;
+  height: 32px;
+  background: var(--border-color);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.ranking-posicao.primeiro {
+  background: var(--palmeiras-gold);
+  color: var(--bg-primary);
+}
+
+.ranking-nome {
+  flex: 1;
+  font-weight: 500;
+}
+
+.ranking-gols {
+  font-weight: 700;
+  color: var(--palmeiras-green-light);
+}
+
+/* ========== PRÓXIMOS JOGOS ========== */
+.proximo-card {
+  padding: 0.85rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  margin-bottom: 0.75rem;
+  transition: all 0.2s;
+}
+
+.proximo-card:hover {
+  transform: translateX(5px);
+  background: rgba(26, 122, 26, 0.1);
+}
+
+.proximo-data {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.proximo-adversario {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.proximo-local {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+/* ========== TWO COL GRID ========== */
+.two-col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+/* ========== LOADING / EMPTY / ERROR ========== */
+.loading,
+.empty,
+.error {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+}
+
+.error {
+  color: var(--danger);
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  border-top: 1px solid var(--border-color);
+  padding: 2rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.footer-content p {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.footer-credit {
+  font-size: 0.7rem;
+  margin-top: 0.5rem;
+  opacity: 0.6;
+}
+
+/* ========== RESPONSIVIDADE ========== */
 @media (max-width: 768px) {
-  .navbar {
+  .header-container {
     flex-direction: column;
-    gap: 16px;
-    padding: 16px 20px;
+    gap: 1rem;
+    padding: 1rem;
   }
 
-  .nav-links {
-    gap: 20px;
+  .nav {
+    gap: 1.5rem;
   }
 
-  .hero h2 {
-    font-size: 1.8rem;
+  .hero-content h1 {
+    font-size: 2rem;
   }
 
-  .content {
+  .container {
+    padding: 1rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .two-col-grid {
     grid-template-columns: 1fr;
-    padding: 20px;
+    gap: 0;
   }
 
-  .card {
-    padding: 16px;
+  .section {
+    padding: 1rem;
+  }
+
+  .jogo-card {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .jogo-placar {
+    order: 2;
+    width: 100%;
+    justify-content: center;
   }
 }
 
 @media (max-width: 480px) {
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
+  .stats-grid {
+    grid-template-columns: 1fr;
   }
 
-  .hero h2 {
-    font-size: 1.4rem;
+  .ranking-item {
+    gap: 0.5rem;
   }
 
-  .hero p {
-    font-size: 0.9rem;
+  .ranking-posicao {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
   }
 }

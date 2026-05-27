@@ -21,12 +21,11 @@ async function carregarJogos() {
     if (result.success && result.data.length > 0) {
       mostrarJogos(result.data);
     } else {
-      container.innerHTML = '<div class="loading">Nenhum jogo encontrado</div>';
+      container.innerHTML = '<div class="empty">Nenhum jogo encontrado</div>';
     }
   } catch (error) {
     console.error("Erro ao carregar jogos:", error);
-    container.innerHTML =
-      '<div class="loading">❌ Erro ao carregar jogos</div>';
+    container.innerHTML = '<div class="error">❌ Erro ao carregar jogos</div>';
   }
 }
 
@@ -34,7 +33,10 @@ function mostrarJogos(jogos) {
   const container = document.getElementById("jogos-container");
   if (!container) return;
 
-  container.innerHTML = jogos
+  // Pegar últimos 5 jogos
+  const ultimosJogos = jogos.slice(-5).reverse();
+
+  container.innerHTML = ultimosJogos
     .map((jogo) => {
       const isPalmeirasHome = jogo.home_team === "Palmeiras";
       const palmeirasGols = isPalmeirasHome ? jogo.home_score : jogo.away_score;
@@ -43,149 +45,216 @@ function mostrarJogos(jogos) {
         ? jogo.away_score
         : jogo.home_score;
 
+      let resultadoClass = "";
       let resultadoIcon = "";
       if (palmeirasGols > adversarioGols) {
-        resultadoIcon = "✅ VITÓRIA";
+        resultadoClass = "vitoria";
+        resultadoIcon = "🏆";
       } else if (palmeirasGols === adversarioGols) {
-        resultadoIcon = "⚖️ EMPATE";
+        resultadoClass = "empate";
+        resultadoIcon = "🤝";
       } else {
-        resultadoIcon = "❌ DERROTA";
+        resultadoClass = "derrota";
+        resultadoIcon = "💔";
       }
 
-      const data = new Date(jogo.match_date).toLocaleDateString("pt-BR");
+      const data = new Date(jogo.match_date).toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "short",
+      });
 
       return `
-        <div class="jogo-item">
-          <div class="jogo-header">
-            <span class="data">📅 ${data}</span>
-          </div>
+        <div class="jogo-card ${resultadoClass}">
+          <div class="jogo-data">${data}</div>
           <div class="jogo-placar">
-            <strong>🐷 Palmeiras ${palmeirasGols} x ${adversarioGols} ${adversario}</strong>
+            <span class="time time-palmeiras">PAL</span>
+            <span class="gols">${palmeirasGols}</span>
+            <span class="vs">x</span>
+            <span class="gols">${adversarioGols}</span>
+            <span class="time time-adversario">${adversario.slice(0, 3).toUpperCase()}</span>
           </div>
-          <div class="jogo-resultado">${resultadoIcon}</div>
+          <div class="jogo-resultado ${resultadoClass}">${resultadoIcon}</div>
         </div>
       `;
     })
     .join("");
 }
 
-// Estatísticas (mockadas por enquanto - depois vem da API)
-const estatisticasPalmeiras2026 = {
-  posicao: 1,
-  pontos: 34,
-  jogos: 15,
-  vitorias: 10,
-  empates: 4,
-  derrotas: 1,
-  gols_pro: 31,
-  gols_contra: 13,
-  saldo_gols: 18,
-  aproveitamento: "73.3%",
-  artilheiro: { nome: "Estêvão", gols: 8 },
-  assistente: { nome: "Veiga", assistencias: 5 },
-};
+// ============================================
+// ESTATÍSTICAS REAIS DA API
+// ============================================
+
+async function carregarEstatisticasTime() {
+  const container = document.getElementById("stats-container");
+  if (!container) return;
+
+  container.innerHTML =
+    '<div class="loading">📊 Carregando estatísticas...</div>';
+
+  try {
+    // Buscar estatísticas do time
+    const response = await fetch(`${API_URL}/statistics/team/summary`);
+    const result = await response.json();
+
+    if (result.success) {
+      const stats = result.data;
+
+      // Buscar artilheiro
+      const rankingResponse = await fetch(
+        `${API_URL}/statistics/ranking/goals?limit=1`,
+      );
+      const rankingResult = await rankingResponse.json();
+      const artilheiro =
+        rankingResult.success && rankingResult.data[0]
+          ? rankingResult.data[0]
+          : { name: "N/A", total_goals: 0 };
+
+      // Calcular aproveitamento
+      const totalMatches = parseInt(stats.total_matches) || 1;
+      const wins = parseInt(stats.total_wins) || 0;
+      const aproveitamento = ((wins / totalMatches) * 100).toFixed(1);
+
+      mostrarEstatisticas({
+        ...stats,
+        aproveitamento,
+        artilheiro_nome: artilheiro.name,
+        artilheiro_gols: artilheiro.total_goals,
+      });
+    } else {
+      container.innerHTML =
+        '<div class="empty">Estatísticas não disponíveis</div>';
+    }
+  } catch (error) {
+    console.error("Erro ao carregar estatísticas:", error);
+    container.innerHTML =
+      '<div class="error">❌ Erro ao carregar estatísticas</div>';
+  }
+}
 
 function mostrarEstatisticas(stats) {
   const container = document.getElementById("stats-container");
   if (!container) return;
 
   container.innerHTML = `
-    <div class="stat-item">
-      <strong>🏆 Posição:</strong> 
-      <span>${stats.posicao}° lugar</span>
-    </div>
-    <div class="stat-item">
-      <strong>📊 Pontos:</strong> 
-      <span>${stats.pontos} pontos</span>
-    </div>
-    <div class="stat-item">
-      <strong>⚽ Jogos:</strong> 
-      <span>${stats.jogos} (${stats.vitorias}V, ${stats.empates}E, ${stats.derrotas}D)</span>
-    </div>
-    <div class="stat-item">
-      <strong>🥅 Gols:</strong> 
-      <span>${stats.gols_pro} marcados / ${stats.gols_contra} sofridos</span>
-    </div>
-    <div class="stat-item">
-      <strong>📈 Saldo:</strong> 
-      <span>+${stats.saldo_gols}</span>
-    </div>
-    <div class="stat-item">
-      <strong>💯 Aproveitamento:</strong> 
-      <span>${stats.aproveitamento}</span>
-    </div>
-    <div class="stat-item">
-      <strong>👑 Artilheiro:</strong> 
-      <span>${stats.artilheiro.nome} - ${stats.artilheiro.gols} gols</span>
-    </div>
-    <div class="stat-item">
-      <strong>🎯 Assistente:</strong> 
-      <span>${stats.assistente.nome} - ${stats.assistente.assistencias} assistências</span>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-icon">🏆</span>
+        <span class="stat-value">${stats.aproveitamento}%</span>
+        <span class="stat-label">Aproveitamento</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">⚽</span>
+        <span class="stat-value">${stats.total_goals || 0}</span>
+        <span class="stat-label">Gols Marcados</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">🎯</span>
+        <span class="stat-value">${stats.total_assists || 0}</span>
+        <span class="stat-label">Assistências</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">👑</span>
+        <span class="stat-value">${stats.artilheiro_nome?.split(" ")[0] || "N/A"}</span>
+        <span class="stat-label">Artilheiro (${stats.artilheiro_gols || 0})</span>
+      </div>
     </div>
   `;
 }
 
-// Próximos jogos (mockados por enquanto)
-const proximosJogos2026 = [
-  {
-    data: "01/06/2026",
-    horario: "16:00",
-    adversario: "Santos",
-    competicao: "Brasileirão",
-    local: "Allianz Parque",
-  },
-  {
-    data: "05/06/2026",
-    horario: "21:30",
-    adversario: "Atlético-MG",
-    competicao: "Brasileirão",
-    local: "Arena MRV",
-  },
-  {
-    data: "11/06/2026",
-    horario: "19:00",
-    adversario: "Cruzeiro",
-    competicao: "Brasileirão",
-    local: "Allianz Parque",
-  },
-];
+// ============================================
+// RANKING DE ARTILHEIROS
+// ============================================
+
+async function carregarRanking() {
+  const container = document.getElementById("ranking-container");
+  if (!container) return;
+
+  try {
+    const response = await fetch(`${API_URL}/statistics/ranking/goals?limit=5`);
+    const result = await response.json();
+
+    if (result.success && result.data.length > 0) {
+      container.innerHTML = `
+        <div class="ranking-list">
+          ${result.data
+            .map(
+              (jogador, index) => `
+            <div class="ranking-item">
+              <div class="ranking-posicao ${index === 0 ? "primeiro" : ""}">${index + 1}</div>
+              <div class="ranking-nome">${jogador.name}</div>
+              <div class="ranking-gols">${jogador.total_goals} gols</div>
+            </div>
+          `,
+            )
+            .join("")}
+        </div>
+      `;
+    } else {
+      container.innerHTML =
+        '<div class="empty">Nenhum jogador com gols registrados</div>';
+    }
+  } catch (error) {
+    console.error("Erro ao carregar ranking:", error);
+    container.innerHTML =
+      '<div class="error">❌ Erro ao carregar ranking</div>';
+  }
+}
+
+// ============================================
+// PRÓXIMOS JOGOS (MOCK - VEM DA API DEPOIS)
+// ============================================
 
 function mostrarProximosJogos() {
   const container = document.getElementById("proximos-container");
   if (!container) return;
 
-  container.innerHTML = proximosJogos2026
+  const proximos = [
+    {
+      data: "01/06",
+      adversario: "Santos",
+      local: "Allianz Parque",
+      horario: "16:00",
+    },
+    {
+      data: "05/06",
+      adversario: "Atlético-MG",
+      local: "Arena MRV",
+      horario: "21:30",
+    },
+    {
+      data: "11/06",
+      adversario: "Cruzeiro",
+      local: "Allianz Parque",
+      horario: "19:00",
+    },
+  ];
+
+  container.innerHTML = proximos
     .map(
       (jogo) => `
-      <div class="jogo-item proximo">
-        <div class="jogo-header">
-          <span class="competicao">🏆 ${jogo.competicao}</span>
-          <span class="data">📅 ${jogo.data} - ${jogo.horario}</span>
-        </div>
-        <div class="jogo-placar">
-          <strong>🐷 Palmeiras vs ${jogo.adversario}</strong>
-          <span class="resultado">⏳ AGENDA</span>
-        </div>
-        <div class="jogo-local">📍 ${jogo.local}</div>
+      <div class="proximo-card">
+        <div class="proximo-data">📅 ${jogo.data}</div>
+        <div class="proximo-adversario">vs ${jogo.adversario}</div>
+        <div class="proximo-local">📍 ${jogo.local} • ${jogo.horario}</div>
       </div>
     `,
     )
     .join("");
 }
 
-// Navegação
+// ============================================
+// NAVEGAÇÃO E INICIALIZAÇÃO
+// ============================================
+
 document.getElementById("loginBtn")?.addEventListener("click", () => {
-  alert("🐷 Área do torcedor - Em desenvolvimento!");
+  window.location.href = "/pages/login.html";
 });
 
-// ============================================
-// INICIALIZAR TUDO QUANDO A PÁGINA CARREGAR
-// ============================================
-
-document.addEventListener("DOMContentLoaded", () => {
-  carregarJogos(); // Agora vem da API!
-  mostrarEstatisticas(estatisticasPalmeiras2026);
+document.addEventListener("DOMContentLoaded", async () => {
+  await carregarJogos();
+  await carregarEstatisticasTime();
+  await carregarRanking();
   mostrarProximosJogos();
 
-  console.log("🐷 Palestra Analytics - Conectado à API!");
+  console.log("🐷 Palestra Analytics - Dados 100% da API!");
 });

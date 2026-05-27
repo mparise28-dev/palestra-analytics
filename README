@@ -1,32 +1,199 @@
-# Palestra Analytics
+# 🐷 PALESTRA ANALYTICS
 
-Sistema fullstack de estatísticas e análise da Sociedade Esportiva Palmeiras.
+### Sistema de Estatísticas e Análise da Sociedade Esportiva Palmeiras
 
-## Objetivo
+![Status](https://img.shields.io/badge/status-em%20desenvolvimento-green)
+![Backend](https://img.shields.io/badge/backend-Node.js-339933)
+![Database](https://img.shields.io/badge/database-PostgreSQL-4169E1)
+![Frontend](https://img.shields.io/badge/frontend-HTML%2FCSS%2FJS-orange)
 
-Desenvolver uma aplicação fullstack moderna para visualização de dados, estatísticas e informações relacionadas ao Palmeiras.
+---
 
-## Tecnologias
+## 📋 Sobre o Projeto
 
-### Frontend
-- HTML
-- CSS
-- JavaScript
+**Palestra Analytics** é uma plataforma fullstack para visualização de estatísticas, jogos e desempenho do Palmeiras. Desenvolvido como projeto de estudo para a FATEC, o sistema consome dados reais de uma API própria e apresenta um dashboard moderno e elegante para o torcedor.
+
+### 🎯 Objetivos
+
+- Consolidar conhecimentos em desenvolvimento fullstack
+- Criar uma arquitetura profissional (Controller → Service → Repository)
+- Entregar uma experiência de usuário séria e confiável
+- Servir como portfólio para oportunidades na área de tecnologia
+
+---
+
+## 🚀 Tecnologias Utilizadas
 
 ### Backend
-- Node.js
-- Express
 
-### Banco de Dados
-- PostgreSQL
+| Tecnologia | Versão | Finalidade                   |
+| ---------- | ------ | ---------------------------- |
+| Node.js    | v24+   | Runtime JavaScript           |
+| Express    | 4.x    | Framework web                |
+| PostgreSQL | 16+    | Banco de dados relacional    |
+| JWT        | 9.x    | Autenticação de usuários     |
+| bcrypt     | 5.x    | Hash de senhas               |
+| cors       | 2.x    | Compartilhamento de recursos |
 
-## Metodologia
+### Frontend
 
-O projeto será desenvolvido utilizando conceitos de Scrum, dividido em 3 sprints.
+| Tecnologia        | Finalidade                          |
+| ----------------- | ----------------------------------- |
+| HTML5             | Estrutura das páginas               |
+| CSS3              | Estilização moderna (Glassmorphism) |
+| JavaScript (ES6+) | Consumo da API e interatividade     |
+| Google Fonts      | Tipografia (Inter)                  |
 
-## Sprint 1
-- Estruturação do projeto
-- Documentação inicial
-- Configuração do backend
-- Primeiros endpoints
-- Integração inicial frontend/backend
+### Ferramentas
+
+- **pgAdmin** - Gerenciamento do banco
+- **Postman/Insomnia** - Testes de API
+- **Git** - Controle de versão
+
+---
+
+## 🏗️ Arquitetura do Sistema
+
+┌─────────────────────────────────────────────────────────────┐
+│ FRONTEND │
+│ ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────────────┐ │
+│ │ index │ │ login │ │ matches │ │ dashboard │ │
+│ │ .html │ │ .html │ │ .html │ │ .html │ │
+│ └────┬────┘ └────┬────┘ └────┬────┘ └────────┬────────┘ │
+│ │ │ │ │ │
+│ └───────────┴───────────┴───────────────┘ │
+│ │ │
+│ fetch() / API │
+└─────────────────────────┼───────────────────────────────────┘
+│
+▼
+┌─────────────────────────────────────────────────────────────┐
+│ BACKEND (Node.js) │
+│ │
+│ ┌─────────┐ ┌──────────┐ ┌──────────┐ │
+│ │ Routes │───▶│Controller│───▶│ Service │ │
+│ └─────────┘ └──────────┘ └────┬─────┘ │
+│ │ │
+│ ▼ │
+│ ┌─────────────┐ │
+│ │ Repository │ │
+│ └──────┬──────┘ │
+│ │ │
+└───────────────────────────────────────┼──────────────────────┘
+│
+▼
+┌─────────────────────────────────────────────────────────────┐
+│ POSTGRESQL DATABASE │
+│ ┌────────┐ ┌────────┐ ┌──────────┐ ┌────────────┐ │
+│ │ users │ │ players│ │ matches │ │ statistics │ │
+│ └────────┘ └────────┘ └──────────┘ └────────────┘ │
+│ ┌────────┐ ┌────────┐ ┌──────────┐ │
+│ │ seasons│ │comments│ │ likes │ │
+│ └────────┘ └────────┘ └──────────┘ │
+└─────────────────────────────────────────────────────────────┘
+
+### 📁 Estrutura de Pastas
+
+palestra-analytics/
+├── backend/
+│ └── src/
+│ ├── config/ # Conexão com banco
+│ ├── controllers/ # Lógica das rotas
+│ ├── middlewares/ # Auth, error handler
+│ ├── repository/ # Queries SQL
+│ ├── routes/ # Definição de endpoints
+│ ├── services/ # Regras de negócio
+│ └── utils/ # Helpers (response)
+├── frontend/
+│ ├── css/ # Estilos globais
+│ ├── js/ # Consumo da API
+│ ├── pages/ # HTMLs secundários
+│ └── assets/ # Imagens, ícones
+├── docs/ # Documentação
+│ └── screenshots/ # Prints do sistema
+└── README.md
+
+---
+
+## 🔧 Como Rodar o Projeto Localmente
+
+### Pré-requisitos
+
+- Node.js (v24+)
+- PostgreSQL (v16+)
+- Git
+
+### Passo a Passo
+
+```bash
+# 1. Clone o repositório
+git clone https://github.com/seu-usuario/palestra-analytics.git
+cd palestra
+
+# 2. Instale as dependências do backend
+cd backend
+npm install
+
+# 3. Configure as variáveis de ambiente
+cp .env.example .env
+# Edite o .env com suas credenciais do banco
+
+# 4. Crie o banco de dados no PostgreSQL
+CREATE DATABASE palestra_analytics;
+
+# 5. Execute as migrations (SQL scripts na pasta docs/)
+# Ou crie as tabelas manualmente no pgAdmin
+
+# 6. Inicie o servidor backend
+npm run dev
+
+# 7. Em outro terminal, sirva o frontend
+# O backend já serve os arquivos estáticos do frontend
+# Acesse http://localhost:3000
+```
+📡 Endpoints da API
+🟢 Públicos (Qualquer usuário)
+Método	Endpoint	Descrição
+GET	/api/matches	Lista todas as partidas
+GET	/api/players	Lista todos os jogadores
+GET	/api/seasons	Lista todas as temporadas
+GET	/api/statistics	Lista todas as estatísticas
+GET	/api/statistics/ranking/goals	Ranking de artilheiros
+GET	/api/statistics/ranking/assists	Ranking de assistências
+GET	/api/statistics/team/summary	Resumo do time
+🔐 Autenticados (Usuário logado)
+Método	Endpoint	Descrição
+POST	/auth/login	Realiza login
+POST	/auth/register	Registra novo usuário
+GET	/api/users/profile	Perfil do usuário
+👑 Admin (Apenas administradores)
+Método	Endpoint	Descrição
+POST	/api/statistics	Cria nova estatística
+PUT	/api/statistics/:id	Atualiza estatística
+DELETE	/api/statistics/:id	Remove estatística
+POST	/api/matches	Cadastra nova partida
+PUT	/api/matches/:id	Edita partida
+
+👨‍💻 Autor
+Marcello Parise Campbell Fonseca
+Estudante de Desenvolvimento de Software Multiplataforma - FATEC
+
+📚 Aprendizados Durante o Projeto
+
+✅ Arquitetura em camadas (Controller → Service → Repository)
+✅ Autenticação JWT com middleware de proteção
+✅ Integração frontend-backend com fetch API
+✅ Design responsivo e identidade visual
+✅ Documentação profissional para portfólio
+
+🚧 Próximos Passos
+
+Dashboard administrativo para CRUD completo
+Scraping automático de dados esportivos
+Gráficos interativos (Chart.js)
+Comentários e interação de usuários
+Deploy na nuvem (Render/Vercel)
+
+📄 Licença
+Este projeto é de uso educacional e estudo pessoal.
+

@@ -1,66 +1,89 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Palestra Analytics - Estatísticas do Palmeiras</title>
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <!-- Header com navegação -->
-    <header class="main-header">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Palestra Analytics - Estatísticas do Palmeiras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-container">
       <div class="logo">
-        <h1>🐷 PALESTRA ANALYTICS | PALMEIRAS</h1>
+        <span class="logo-icon">🐷</span>
+        <span class="logo-text">PALESTRA <span class="logo-highlight">ANALYTICS</span></span>
       </div>
-      <nav class="main-nav">
-        <a href="/" class="nav-link active">Jogos</a>
+      <nav class="nav">
+        <a href="/" class="nav-link active">Início</a>
         <a href="/estatisticas" class="nav-link">Estatísticas</a>
         <a href="/elenco" class="nav-link">Elenco</a>
       </nav>
-      <div class="auth-buttons">
-        <button id="loginBtn" class="btn btn-outline">Login</button>
-      </div>
-    </header>
+      <button id="loginBtn" class="btn-login">Acessar Conta</button>
+    </div>
+  </header>
 
-    <!-- Conteúdo principal -->
-    <main id="app">
-      <section class="hero">
-        <h2>🐷 Análise completa do Palmeiras 🐷</h2>
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Análise completa do <span class="hero-highlight">Palmeiras</span></h1>
         <p>Estatísticas, desempenho e história do Verdão - O Palestra Italia</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <!-- Seção Últimos Jogos -->
+      <section class="section">
+        <div class="section-header">
+          <h2>📋 Últimos Jogos do Verdão</h2>
+        </div>
+        <div id="jogos-container" class="jogos-grid">
+          <div class="loading">Carregando jogos...</div>
+        </div>
       </section>
 
-      <section class="content">
-        <div class="card">
-          <h3>📋 Últimos Jogos do Verdão</h3>
-          <div id="jogos-container">
-            <p>Carregando jogos...</p>
-          </div>
+      <!-- Seção Estatísticas -->
+      <section class="section">
+        <div class="section-header">
+          <h2>📊 Estatísticas da Temporada</h2>
         </div>
-
-        <div class="card">
-          <h3>📊 Estatísticas 2026</h3>
-          <div id="stats-container">
-            <p>Carregando estatísticas...</p>
-          </div>
+        <div id="stats-container">
+          <div class="loading">Carregando estatísticas...</div>
         </div>
+      </section>
 
-        <div class="card">
-          <h3>📅 Próximos Jogos</h3>
+      <!-- Grid 2 colunas: Ranking + Próximos -->
+      <div class="two-col-grid">
+        <section class="section">
+          <div class="section-header">
+            <h2>⚽ Artilheiros</h2>
+          </div>
+          <div id="ranking-container">
+            <div class="loading">Carregando ranking...</div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <h2>📅 Próximos Jogos</h2>
+          </div>
           <div id="proximos-container">
-            <p>Carregando próximos jogos...</p>
+            <div class="loading">Carregando próximos jogos...</div>
           </div>
-        </div>
-      </section>
-    </main>
+        </section>
+      </div>
+    </div>
+  </main>
 
-    <!-- Footer -->
-    <footer class="main-footer">
-      <p>
-        © 2026 Palestra Analytics - Avanti, Palestra! 🐷💚 | Dados exclusivos do
-        Palmeiras
-      </p>
-    </footer>
+  <footer class="footer">
+    <div class="footer-content">
+      <p>© 2026 Palestra Analytics - Avanti, Palestra! 🐷💚</p>
+      <p class="footer-credit">Dados exclusivos do Palmeiras | Desenvolvido com 💚</p>
+    </div>
+  </footer>
 
-    <script src="js/main.js"></script>
-  </body>
+  <script src="js/main.js"></script>
+</body>
 </html>
