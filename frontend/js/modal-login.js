@@ -101,8 +101,9 @@ async function handleModalLogin(email, password) {
       // Recarregar dados se as funções existirem no main.js
       if (typeof window.carregarEstatisticasTime === "function") {
         window.carregarEstatisticasTime();
+      }
+      if (typeof window.carregarRanking === "function") {
         window.carregarRanking();
-        window.carregarUltimosJogos();
       }
 
       return true;
@@ -146,10 +147,12 @@ function updateAuthUI() {
         localStorage.removeItem("palestra_token");
         localStorage.removeItem("palestra_user");
         updateAuthUI();
+        // Recarregar dados se as funções existirem no main.js
         if (typeof window.carregarEstatisticasTime === "function") {
           window.carregarEstatisticasTime();
+        }
+        if (typeof window.carregarRanking === "function") {
           window.carregarRanking();
-          window.carregarUltimosJogos();
         }
       });
     }
@@ -221,7 +224,10 @@ if (modalLoginForm) {
   });
 }
 
-// Preencher e-mail lembrado
+// ============================================
+// PREENCHER E-MAIL LEMBRADO
+// ============================================
+
 function loadRememberedEmail() {
   const remembered = localStorage.getItem("palestra_remember");
   const savedEmail = localStorage.getItem("palestra_email");
@@ -229,6 +235,19 @@ function loadRememberedEmail() {
     modalEmail.value = savedEmail;
     if (modalRememberMe) modalRememberMe.checked = true;
   }
+}
+
+// ============================================
+// REDIRECIONAMENTO PARA REGISTRO
+// ============================================
+
+const createAccountLink = document.getElementById("showRegister");
+
+if (createAccountLink) {
+  createAccountLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.location.href = "pages/register.html";
+  });
 }
 
 // Expor funções globalmente para o main.js acessar
