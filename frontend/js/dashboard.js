@@ -1,35 +1,20 @@
 // ============================================
 // CONFIGURAÇÕES
 // ============================================
-const API_URL = "http://localhost:3000/api";
-
 // ============================================
 // VERIFICAÇÃO DE AUTENTICAÇÃO
 // ============================================
 
 function checkAuth() {
-  const token = localStorage.getItem("palestra_token");
-  if (!token) {
-    window.location.href = "/pages/login.html";
+  if (!window.PalestraAuth?.isLoggedIn()) {
+    window.location.href = "/";
     return false;
   }
-  return token;
-}
-
-function getUserData() {
-  const userStr = localStorage.getItem("palestra_user");
-  if (userStr) {
-    try {
-      return JSON.parse(userStr);
-    } catch (e) {
-      return null;
-    }
-  }
-  return null;
+  return true;
 }
 
 function updateUserUI() {
-  const user = getUserData();
+  const user = window.PalestraAuth?.getUser();
   const userNameSpan = document.getElementById("userName");
   const welcomeSpan = document.getElementById("welcomeName");
 
@@ -52,9 +37,7 @@ function setupLogout() {
   const logoutBtn = document.getElementById("logoutBtn");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
-      localStorage.removeItem("palestra_token");
-      localStorage.removeItem("palestra_user");
-      window.location.href = "/pages/login.html";
+      window.PalestraAuth.logout("/");
     });
   }
 }
@@ -64,17 +47,10 @@ function setupLogout() {
 // ============================================
 
 async function fetchWithAuth(endpoint) {
-  const token = checkAuth();
-  if (!token) return null;
+  if (!checkAuth()) return null;
 
   try {
-    const response = await fetch(`${API_URL}${endpoint}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    const result = await response.json();
+    const result = await window.PalestraAPI.get(endpoint);
     return result.success ? result.data : null;
   } catch (error) {
     console.error(`Erro ao buscar ${endpoint}:`, error);
