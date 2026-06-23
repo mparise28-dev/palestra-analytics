@@ -5,12 +5,12 @@ const { authenticate, isAdmin } = require("../middlewares/auth"); // ← AQUI MU
 
 // Rotas públicas (qualquer um pode ver)
 router.get("/", statisticsController.getAll);
-router.get("/:id", statisticsController.getById);
 router.get("/players/:playerId", statisticsController.getByPlayer);
 router.get("/matches/:matchId", statisticsController.getByMatch);
 router.get("/ranking/goals", statisticsController.getGoalRanking);
 router.get("/ranking/assists", statisticsController.getAssistRanking);
 router.get("/team/summary", statisticsController.getTeamStats);
+router.get("/:id", statisticsController.getById);
 
 // Rotas protegidas (apenas admin)
 router.post("/", authenticate, isAdmin, statisticsController.create); // ← authenticate

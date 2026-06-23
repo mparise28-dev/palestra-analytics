@@ -14,8 +14,23 @@ function error(res, message = "Erro", statusCode = 400, data = null) {
   });
 }
 
+function unauthorized(res, message = "Não autorizado") {
+  return error(res, message, 401);
+}
+
+function forbidden(res, message = "Acesso negado") {
+  return error(res, message, 403);
+}
+
 // Criando os apelidos
 const successResponse = success;
 const errorResponse = error;
 
-module.exports = { success, error, successResponse, errorResponse };
+module.exports = {
+  success,
+  error,
+  unauthorized,
+  forbidden,
+  successResponse,
+  errorResponse,
+};

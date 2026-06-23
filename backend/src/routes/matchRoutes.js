@@ -5,8 +5,8 @@ const { authenticate } = require("../middlewares/auth");
 
 // Rotas públicas (qualquer um pode ver)
 router.get("/", matchController.getAll);
-router.get("/:id", matchController.getById);
 router.get("/season/:seasonId", matchController.getBySeason);
+router.get("/:id", matchController.getById);
 
 // Rotas protegidas (precisa estar logado E ser admin)
 router.post("/", authenticate, matchController.create);
