@@ -2,8 +2,6 @@
 // MODAL DE LOGIN
 // ============================================
 
-const API_URL_AUTH = "http://localhost:3000";
-
 // Elementos do modal
 const modal = document.getElementById("loginModal");
 const loginBtn = document.getElementById("loginBtn");
@@ -67,19 +65,10 @@ function setModalLoading(isLoading) {
 
 async function handleModalLogin(email, password) {
   try {
-    const response = await fetch(`${API_URL_AUTH}/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
+    const data = await window.PalestraAPI.post("/auth/login", {
+      email,
+      password,
     });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || "Erro ao fazer login");
-    }
 
     if (data.success && data.data) {
       const { token, user } = data.data;
@@ -122,15 +111,12 @@ async function handleModalLogin(email, password) {
 // ============================================
 
 function updateAuthUI() {
-  const token = localStorage.getItem("palestra_token");
-  const userStr = localStorage.getItem("palestra_user");
+  const token = window.PalestraAuth?.getToken();
+  const user = window.PalestraAuth?.getUser();
   let userName = "Torcedor";
 
-  if (userStr) {
-    try {
-      const user = JSON.parse(userStr);
-      userName = user.name || user.email?.split("@")[0] || "Torcedor";
-    } catch (e) {}
+  if (user) {
+    userName = user.name || user.email?.split("@")[0] || "Torcedor";
   }
 
   if (token && authArea) {
@@ -144,16 +130,7 @@ function updateAuthUI() {
     const logoutBtn = document.getElementById("logoutHeaderBtn");
     if (logoutBtn) {
       logoutBtn.addEventListener("click", () => {
-        localStorage.removeItem("palestra_token");
-        localStorage.removeItem("palestra_user");
-        updateAuthUI();
-        // Recarregar dados se as funções existirem no main.js
-        if (typeof window.carregarEstatisticasTime === "function") {
-          window.carregarEstatisticasTime();
-        }
-        if (typeof window.carregarRanking === "function") {
-          window.carregarRanking();
-        }
+        window.PalestraAuth.logout("/");
       });
     }
   } else if (authArea && !token) {

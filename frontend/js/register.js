@@ -1,5 +1,3 @@
-const API_BASE_URL = "http://localhost:3000";
-
 document.addEventListener("DOMContentLoaded", () => {
   // === CÓDIGO DO REGISTRO ===
   const form = document.getElementById("register-form");
@@ -36,29 +34,19 @@ document.addEventListener("DOMContentLoaded", () => {
       submitBtn.textContent = "Criando conta...";
 
       try {
-        const response = await fetch(`${API_BASE_URL}/auth/register`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ name: username, email, password }),
+        await window.PalestraAPI.post("/auth/register", {
+          name: username,
+          email,
+          password,
         });
 
-        const data = await response.json();
-
-        if (response.ok) {
-          showMessage("Conta criada com sucesso! Redirecionando...", "success");
-          setTimeout(() => {
-            window.location.href = "index.html";
-          }, 2000);
-        } else {
-          showMessage(data.message || "Erro ao criar conta", "error");
-          submitBtn.disabled = false;
-          submitBtn.textContent = "Criar Conta";
-        }
+        showMessage("Conta criada com sucesso! Redirecionando...", "success");
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2000);
       } catch (error) {
         console.error("Erro:", error);
-        showMessage("Erro de conexão com o servidor", "error");
+        showMessage(error.message || "Erro de conexão com o servidor", "error");
         submitBtn.disabled = false;
         submitBtn.textContent = "Criar Conta";
       }
@@ -72,13 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loginLink.addEventListener("click", (e) => {
       e.preventDefault();
 
-      // Chama a função global do modal
-      if (typeof window.openModal === "function") {
-        window.openModal();
-      } else {
-        console.warn("Função openModal não encontrada, redirecionando...");
-        window.location.href = "login.html";
-      }
+      window.location.href = "/";
     });
   }
 });
