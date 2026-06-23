@@ -8,7 +8,7 @@ class UserRepository {
     const result = await pool.query(
       `INSERT INTO users (name, email, password_hash)
        VALUES ($1, $2, $3)
-       RETURNING id, name, email, created_at`,
+       RETURNING id, name, email, role, created_at`,
       [name, email, password_hash],
     );
 
@@ -18,7 +18,7 @@ class UserRepository {
   // READ - listar todos
   async findAll() {
     const result = await pool.query(
-      "SELECT id, name, email, created_at FROM users",
+      "SELECT id, name, email, role, created_at FROM users",
     );
     return result.rows;
   }
@@ -26,7 +26,7 @@ class UserRepository {
   // READ - buscar por ID
   async findById(id) {
     const result = await pool.query(
-      "SELECT id, name, email, created_at FROM users WHERE id = $1",
+      "SELECT id, name, email, role, created_at FROM users WHERE id = $1",
       [id],
     );
     return result.rows[0];
@@ -35,7 +35,7 @@ class UserRepository {
   // NOVO - buscar por email (sem senha, pra perfil)
   async findByEmail(email) {
     const result = await pool.query(
-      "SELECT id, name, email, created_at FROM users WHERE email = $1",
+      "SELECT id, name, email, role, created_at FROM users WHERE email = $1",
       [email],
     );
     return result.rows[0];
@@ -44,7 +44,7 @@ class UserRepository {
   // NOVO - buscar por email com senha (pra login)
   async findByEmailWithPassword(email) {
     const result = await pool.query(
-      "SELECT id, name, email, password_hash, created_at FROM users WHERE email = $1",
+      "SELECT id, name, email, role, password_hash, created_at FROM users WHERE email = $1",
       [email],
     );
     return result.rows[0];
@@ -58,7 +58,7 @@ class UserRepository {
       `UPDATE users
        SET name = $1, email = $2
        WHERE id = $3
-       RETURNING id, name, email`,
+       RETURNING id, name, email, role`,
       [name, email, id],
     );
 

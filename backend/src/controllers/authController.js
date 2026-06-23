@@ -12,7 +12,7 @@ class AuthController {
 
       // Gera token JWT
       const token = jwt.sign(
-        { id: user.id, email: user.email, role: "user" },
+        { id: user.id, email: user.email, role: user.role },
         process.env.JWT_SECRET,
         { expiresIn: "7d" },
       );
@@ -32,7 +32,7 @@ class AuthController {
 
       // Gera token JWT
       const token = jwt.sign(
-        { id: user.id, email: user.email, role: "user" },
+        { id: user.id, email: user.email, role: user.role },
         process.env.JWT_SECRET,
         { expiresIn: "7d" },
       );
