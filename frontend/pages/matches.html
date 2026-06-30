@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Partidas | Palestra Analytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <style>
+      .page-title {
+        margin-bottom: 2rem;
+      }
+
+      .page-title h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .page-title p {
+        color: var(--text-secondary);
+      }
+
+      .matches-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .match-card {
+        display: grid;
+        grid-template-columns: 120px 1fr auto;
+        gap: 1rem;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1rem;
+      }
+
+      .match-date,
+      .match-stadium {
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+      }
+
+      .match-teams {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.75rem;
+        font-weight: 600;
+      }
+
+      .match-score {
+        color: var(--palmeiras-gold);
+        font-size: 1.15rem;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .state-message {
+        padding: 2rem;
+        text-align: center;
+        color: var(--text-secondary);
+      }
+
+      @media (max-width: 768px) {
+        .match-card {
+          grid-template-columns: 1fr;
+          gap: 0.75rem;
+        }
+
+        .match-score {
+          white-space: normal;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-container">
+        <div class="logo">
+          <span class="logo-icon">PA</span>
+          <span class="logo-text"
+            >PALESTRA <span class="logo-highlight">ANALYTICS</span></span
+          >
+        </div>
+        <nav class="nav">
+          <a href="dashboard.html" class="nav-link">Dashboard</a>
+          <a href="matches.html" class="nav-link active">Jogos</a>
+          <a href="statistics.html" class="nav-link">Estatisticas</a>
+        </nav>
+        <div class="user-menu">
+          <span id="userName" class="user-name">Torcedor</span>
+          <button id="logoutBtn" class="btn-logout">Sair</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <section class="page-title">
+          <h1>Partidas</h1>
+          <p>Visualize as partidas cadastradas no Palestra Analytics.</p>
+        </section>
+
+        <section class="section" aria-labelledby="matches-title">
+          <div class="section-header">
+            <h2 id="matches-title">Lista de partidas</h2>
+          </div>
+          <div id="matches-container">
+            <div class="loading">Carregando partidas...</div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>(c) 2026 Palestra Analytics - Avanti, Palestra!</p>
+    </footer>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/matches.js"></script>
+  </body>
+</html>
